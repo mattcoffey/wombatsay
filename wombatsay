@@ -1,0 +1,71 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  wombatsay
+#
+#         USAGE:  ./wombatsay [some words]
+#                 echo $(fortune -n 60 -s) | ./wombatsay
+#
+#   DESCRIPTION:  Print to stdout a picture of wombat with a phrase defined by
+#                 either the program arguments or stdin
+#
+#       OPTIONS:  ---
+#  REQUIREMENTS:  ---
+#          BUGS:  Doesn't work that well with long strings
+#         NOTES:  I found the wombat here:
+#
+#                 http://www.retrojunkie.com/asciiart/animals/wombats.htm
+#
+#                 If you want me to credit you, get in touch.
+#        AUTHOR:  Matt Coffey (), 
+#       COMPANY:  
+#       VERSION:  1.0
+#       CREATED:  11/17/15 23:12:19 GMT
+#      REVISION:  ---
+#===============================================================================
+
+arguments=( "$@" )
+say=${arguments[*]}
+sayLength=${#say}
+
+if [[ $sayLength -lt 1 ]]; then
+    say=`cat`
+    sayLength=${#say}
+fi
+
+cat <<"EOF"
+                               ,.--""""--.._
+                             ."     .'      `-.
+                            ;      ;           ;
+                           '      ;             )
+                          /     '             . ;
+                         /     ;     `.        `;
+                       ,.'     :         .     : )
+                       ;|\'    :      `./|) \  ;/
+                       ;| \"  -,-   "-./ |;  ).;
+                       /\/              \/   );
+                      :                 \    ;
+                      :     _      _     ;   )
+                      `.   \;\    /;/    ;  /
+                        !    :   :     ,/  ;
+                         (`. : _ : ,/""   ;
+                          \\\`"^" ` :    ;
+                              /    (    )
+                             /     ////
+EOF
+
+while [[ $reps -lt $reps ]]; do
+    bubble="$bubble-"
+    let reps=reps+1
+done
+
+while [[ $reps -lt 27 ]]; do
+    passing="$padding "
+    let reps=reps+1
+done
+
+echo "$padding   $bubble"
+echo "$padding < $say >"
+echo "$padding   $bubble"
+
+exit 0
