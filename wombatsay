@@ -6,7 +6,7 @@
 #         USAGE:  ./wombatsay [some words]
 #                 echo $(fortune -n 60 -s) | ./wombatsay
 #
-#   DESCRIPTION:  Print to stdout a picture of wombat with a phrase defined by
+#   DESCRIPTION:  Print to stdout a picture of a wombat with a phrase defined by
 #                 either the program arguments or stdin
 #
 #       OPTIONS:  ---
