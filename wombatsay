@@ -29,6 +29,10 @@ say=${arguments[*]}
 sayLength=${#say}
 
 if [[ $sayLength -lt 1 ]]; then
+    if [[ -t 0 ]]; then
+        echo 'Usage: ./wombatsay [some words]'
+        exit 0
+    fi
     say=`cat`
     sayLength=${#say}
 fi
@@ -54,13 +58,13 @@ cat <<"EOF"
                              /     ////
 EOF
 
-while [[ $reps -lt $reps ]]; do
+while [[ $reps -lt $sayLength ]]; do
     bubble="$bubble-"
     let reps=reps+1
 done
 
 while [[ $reps -lt 27 ]]; do
-    passing="$padding "
+    padding="$padding "
     let reps=reps+1
 done
 
