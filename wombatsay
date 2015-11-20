@@ -28,12 +28,14 @@ arguments=( "$@" )
 say=${arguments[*]}
 sayLength=${#say}
 
+# If there were no program arguments
 if [[ $sayLength -lt 1 ]]; then
+    # If there is nothing in stdin
     if [[ -t 0 ]]; then
         echo 'Usage: ./wombatsay [some words]'
         exit 0
     fi
-    say=`cat`
+    say=$(cat)
     sayLength=${#say}
 fi
 
@@ -62,6 +64,8 @@ while [[ $reps -lt $sayLength ]]; do
     bubble="$bubble-"
     let reps=reps+1
 done
+
+# reps is now set to the same value as sayLength
 
 while [[ $reps -lt 27 ]]; do
     padding="$padding "
