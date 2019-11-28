@@ -7,5 +7,5 @@ The speech bubble doesn't deal well with long strings tabs or newlines
 
 # Usage
 
-Print out fortune (max 75 chars with linebreaks and tabs replaced with spaces): 
-    fortune -n 75 -s | tr '\n' ' ' | tr '\t' ' ' | wombatsay
+Print out fortune (with tabs replaced with spaces): 
+    fortune | sed -e $'s/\t//g' | wombatsay
