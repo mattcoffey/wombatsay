@@ -49,6 +49,12 @@ do
     if [ $lineLength -gt $sayLength ]; then
         sayLength=$lineLength
     fi
+done
+
+for index in "${!lines[@]}"
+do
+    line=${lines[index]}
+    lineLength=${#line}
     padLength=$(($sayLength-$lineLength+1))
     rightPadding=$(head -c $padLength < /dev/zero | tr '\0' ' ')
     lines[$index]="< ${lines[index]}$rightPadding >"
