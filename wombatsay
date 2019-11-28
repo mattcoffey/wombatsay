@@ -11,7 +11,7 @@
 #
 #       OPTIONS:  ---
 #  REQUIREMENTS:  ---
-#          BUGS:  Doesn't work that well with long strings
+#          BUGS:  Doesn't work that well with long lines or tabs
 #         NOTES:  I found the wombat here:
 #
 #                 http://www.retrojunkie.com/asciiart/animals/wombats.htm
@@ -39,6 +39,31 @@ if [[ $sayLength -lt 1 ]]; then
     sayLength=${#say}
 fi
 
+IFS=$'\n' read -rd '' -a lines <<<"$say"
+
+sayLength=0
+for index in "${!lines[@]}"
+do
+    line=${lines[index]}
+    lineLength=${#line}
+    if [ $lineLength -gt $sayLength ]; then
+        sayLength=$lineLength
+    fi
+    padLength=$(($sayLength-$lineLength+1))
+    rightPadding=$(head -c $padLength < /dev/zero | tr '\0' ' ')
+    lines[$index]="< ${lines[index]}$rightPadding >"
+done
+
+bubbleLength=$(($sayLength+1))
+bubble=$(head -c $bubbleLength < /dev/zero | tr '\0' '-')
+
+paddingLength="$((27-$sayLength))"
+if [[ $paddingLength -lt 0 ]]; then
+    padding=''
+else
+    padding=$(head -c $paddingLength < /dev/zero | tr '\0' ' ')
+fi
+
 cat <<"EOF"
                                ,.--""""--.._
                              ."     .'      `-.
@@ -60,20 +85,11 @@ cat <<"EOF"
                              /     ////
 EOF
 
-while [[ $reps -lt $sayLength ]]; do
-    bubble="$bubble-"
-    let reps=reps+1
+echo "$padding  $bubble"
+for line in "${lines[@]}"
+do
+    echo "$padding$line"
 done
-
-# reps is now set to the same value as sayLength
-
-while [[ $reps -lt 27 ]]; do
-    padding="$padding "
-    let reps=reps+1
-done
-
-echo "$padding   $bubble"
-echo "$padding < $say >"
-echo "$padding   $bubble"
+echo "$padding  $bubble"
 
 exit 0
